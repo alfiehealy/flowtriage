@@ -2,7 +2,7 @@
 
 **A reasoning agent that triages inherited automation estates: it maps dependencies, finds the landmines, and produces a remediation plan where every severity score is grounded in a citable standard.**
 
-> 🎬 **[2½-minute demo video](PLACEHOLDER_VIDEO_LINK)** · Built for the **Microsoft Agents League Hackathon 2026 - Reasoning Agents track**, powered by **Microsoft Foundry + Foundry IQ**.
+> 🎬 **[2½-minute demo video](https://www.youtube.com/watch?v=SsVOL8txtJw)** · Built for the **Microsoft Agents League Hackathon 2026 - Reasoning Agents track**, powered by **Microsoft Foundry + Foundry IQ**.
 
 ![Triage report hero](assets/triage-report-hero.png)
 
