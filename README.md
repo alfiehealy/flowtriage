@@ -1,10 +1,16 @@
-# FlowTriage
+<div align="center">
+
+# 🛡️ FlowTriage
 
 **A reasoning agent that triages inherited automation estates: it maps dependencies, finds the landmines, and produces a remediation plan where every severity score is grounded in a citable standard.**
 
-> 🎬 **[2½-minute demo video](https://www.youtube.com/watch?v=SsVOL8txtJw)** · Built for the **Microsoft Agents League Hackathon 2026 - Reasoning Agents track**, powered by **Microsoft Foundry + Foundry IQ**.
+[![Built on Microsoft Foundry + Foundry IQ](https://img.shields.io/badge/Built_on-Microsoft_Foundry_%2B_Foundry_IQ-0078D4?logo=microsoftazure&logoColor=white)](https://ai.azure.com) [![Microsoft Agents League 2026](https://img.shields.io/badge/Microsoft_Agents_League_2026-Reasoning_Agents_track-6f42c1)](https://www.youtube.com/watch?v=SsVOL8txtJw) [![License: MIT](https://img.shields.io/badge/License-MIT-3da639.svg)](LICENSE) [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](requirements.txt)
 
-![Triage report hero](assets/triage-report-hero.png)
+### [▶&nbsp;&nbsp;Watch the 2½-minute demo](https://www.youtube.com/watch?v=SsVOL8txtJw)
+
+</div>
+
+[![FlowTriage triage report](assets/triage-report-hero.png)](https://www.youtube.com/watch?v=SsVOL8txtJw)
 
 ---
 
