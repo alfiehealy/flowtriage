@@ -4,7 +4,7 @@
 
 > 🎬 **[2½-minute demo video](PLACEHOLDER_VIDEO_LINK)** · Built for the **Microsoft Agents League Hackathon 2026 - Reasoning Agents track**, powered by **Microsoft Foundry + Foundry IQ**.
 
-![Triage report hero](PLACEHOLDER_HERO_SCREENSHOT.png)
+![Triage report hero](assets/triage-report-hero.png)
 
 ---
 
@@ -62,7 +62,7 @@ This isn't retrieval bolted onto a chatbot. **The agent's entire judgment model 
 - Detection guidance (what counts as a secret, what counts as a cycle, what counts as an orphan) is grounded in nine governance standards under [`knowledge/`](knowledge/)
 - Foundry IQ's agentic retrieval picks the relevant standard per finding; the agent is forbidden from scoring anything it cannot ground
 
-![Foundry IQ knowledge base](PLACEHOLDER_KB_SCREENSHOT.png)
+![Foundry IQ knowledge base](assets/foundry-iq-knowledge-base.png)
 
 **Swap the knowledge base, change the judgment.** Point the same agent at *your* organisation's standards and it triages by your rules - that's the Foundry IQ design payoff.
 
