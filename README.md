@@ -2,7 +2,7 @@
 
 **A reasoning agent that triages inherited automation estates: it maps dependencies, finds the landmines, and produces a remediation plan where every severity score is grounded in a citable standard.**
 
-> 🎬 **[2½-minute demo video](PLACEHOLDER_VIDEO_LINK)** · Built for the **Microsoft Agents League Hackathon 2026 — Reasoning Agents track**, powered by **Microsoft Foundry + Foundry IQ**.
+> 🎬 **[2½-minute demo video](PLACEHOLDER_VIDEO_LINK)** · Built for the **Microsoft Agents League Hackathon 2026 - Reasoning Agents track**, powered by **Microsoft Foundry + Foundry IQ**.
 
 ![Triage report hero](PLACEHOLDER_HERO_SCREENSHOT.png)
 
@@ -27,14 +27,14 @@ I know because I maintain a **477-flow production estate**, where I run a nightl
                 severity arithmetic · prioritisation · remediation
                         │
                         ▼
-                  Foundry IQ knowledge base  �-�── 9 governance standards
+                  Foundry IQ knowledge base  ◀── 9 governance standards
                   (agentic retrieval)             incl. the risk rubric itself
                         │
                         ▼
-                triage-report.md  — ranked findings, every score cited
+                triage-report.md  - ranked findings, every score cited
 ```
 
-**Design principle: deterministic sensors, grounded judgment.** Detection (graph algorithms, regex secret scanning, register lookups) is code — same input, same evidence, every run. Judgment (what a finding *means*, how severe, what order to fix) is the agent, and every judgment must cite a standard retrieved from Foundry IQ. LLMs are unreliable at exhaustive analysis and excellent at contextual judgment; this architecture puts each where it belongs.
+**Design principle: deterministic sensors, grounded judgment.** Detection (graph algorithms, regex secret scanning, register lookups) is code - same input, same evidence, every run. Judgment (what a finding *means*, how severe, what order to fix) is the agent, and every judgment must cite a standard retrieved from Foundry IQ. LLMs are unreliable at exhaustive analysis and excellent at contextual judgment; this architecture puts each where it belongs.
 
 The agent ingests raw flow definition exports and executes a fixed seven-step protocol. The output is a triage report with an explicit **reasoning trace** per finding, a ranked findings table, and a sequenced remediation plan.
 
@@ -42,29 +42,29 @@ The agent ingests raw flow definition exports and executes a fixed seven-step pr
 
 FlowTriage is built to make multi-step reasoning *visible and verifiable*:
 
-1. **Evidence verification** — counts, states, owners, connector surface from the analyzer
-2. **Cycle judgment** — the analyzer's graph evidence surfaces a **three-hop circular dependency (flow-08 → flow-17 → flow-23 → flow-08)** that no single flow owner could see, because each individual hop looks legitimate; the agent retrieves the child-flow standard and judges it CRITICAL with the platform-level blast radius explained
-3. **Security judgment** — severity and remediation sequencing for detected secrets, per the retrieved credential standard
-4. **Lifecycle judgment** — deprecated connectors judged against the register's EOL dates *and* each flow's live state; departed-owner findings against the orphan policy
-5. **Reliability judgment** — polling and error-handling evidence weighed by what each flow touches (payroll and billing flows take the rubric's +10 modifier — the agent reads the raw definitions to make that call)
-6. **Scoring** — severities assigned from a rubric *retrieved from the knowledge base*, with modifier arithmetic shown (e.g. orphaned flow: base MEDIUM, −10 suspended-state modifier)
-7. **Reporting** — ordered per a remediation playbook, also retrieved
+1. **Evidence verification** - counts, states, owners, connector surface from the analyzer
+2. **Cycle judgment** - the analyzer's graph evidence surfaces a **three-hop circular dependency (flow-08 → flow-17 → flow-23 → flow-08)** that no single flow owner could see, because each individual hop looks legitimate; the agent retrieves the child-flow standard and judges it CRITICAL with the platform-level blast radius explained
+3. **Security judgment** - severity and remediation sequencing for detected secrets, per the retrieved credential standard
+4. **Lifecycle judgment** - deprecated connectors judged against the register's EOL dates *and* each flow's live state; departed-owner findings against the orphan policy
+5. **Reliability judgment** - polling and error-handling evidence weighed by what each flow touches (payroll and billing flows take the rubric's +10 modifier - the agent reads the raw definitions to make that call)
+6. **Scoring** - severities assigned from a rubric *retrieved from the knowledge base*, with modifier arithmetic shown (e.g. orphaned flow: base MEDIUM, −10 suspended-state modifier)
+7. **Reporting** - ordered per a remediation playbook, also retrieved
 
 Each finding in the report shows: evidence item → standard retrieved → judgment with arithmetic. The reasoning is the artefact, not a hidden chain.
 
-**Where the agent earns its keep (judgment the code can't do):** the analyzer reports *23 flows* missing error handling — the agent reads the raw definitions to triage which matter, applying the rubric's +10 business-impact modifier to `payroll_export_DO_NOT_EDIT` while leaving "Untitled flow (3)" at LOW. It scores the same deprecated connector differently in an enabled flow versus a suspended one. And it recognises compounding risk: flow-11's hardcoded key sits in an *enabled hourly* flow, so exposure repeats 24�- daily and key rotation must precede any flow edit. None of that is in evidence.json — it's contextual, multi-step judgment.
+**Where the agent earns its keep (judgment the code can't do):** the analyzer reports *23 flows* missing error handling - the agent reads the raw definitions to triage which matter, applying the rubric's +10 business-impact modifier to `payroll_export_DO_NOT_EDIT` while leaving "Untitled flow (3)" at LOW. It scores the same deprecated connector differently in an enabled flow versus a suspended one. And it recognises compounding risk: flow-11's hardcoded key sits in an *enabled hourly* flow, so exposure repeats 24× daily and key rotation must precede any flow edit. None of that is in evidence.json - it's contextual, multi-step judgment.
 
 ## Microsoft IQ integration: Foundry IQ as the spine
 
 This isn't retrieval bolted onto a chatbot. **The agent's entire judgment model lives in the Foundry IQ knowledge base:**
 
-- The [severity rubric](knowledge/01-risk-scoring-rubric.md) the agent scores against is itself a retrieved document — so every score is a citation, not a vibe
+- The [severity rubric](knowledge/01-risk-scoring-rubric.md) the agent scores against is itself a retrieved document - so every score is a citation, not a vibe
 - Detection guidance (what counts as a secret, what counts as a cycle, what counts as an orphan) is grounded in nine governance standards under [`knowledge/`](knowledge/)
 - Foundry IQ's agentic retrieval picks the relevant standard per finding; the agent is forbidden from scoring anything it cannot ground
 
 ![Foundry IQ knowledge base](PLACEHOLDER_KB_SCREENSHOT.png)
 
-**Swap the knowledge base, change the judgment.** Point the same agent at *your* organisation's standards and it triages by your rules — that's the Foundry IQ design payoff.
+**Swap the knowledge base, change the judgment.** Point the same agent at *your* organisation's standards and it triages by your rules - that's the Foundry IQ design payoff.
 
 ## Reliability & safety
 
@@ -72,7 +72,7 @@ The agent operates under hard rules, and the repo ships the evidence:
 
 - **Cite-or-refuse:** a finding without a standards citation is invalid by instruction. Concerns with no standards coverage go to a "Requires human review" section, unscored
 - **No fabrication:** ask it about a flow that doesn't exist and it says so
-- **Eval harness included** ([`src/eval/`](src/eval/)) — 8 cases covering grounded detection (E1-E4) and safe failure (E5-E8: nonexistent flows, ungroundable concerns, empty estates, trivial prompt injection)
+- **Eval harness included** ([`src/eval/`](src/eval/)) - 8 cases covering grounded detection (E1-E4) and safe failure (E5-E8: nonexistent flows, ungroundable concerns, empty estates, trivial prompt injection)
 
 ### Test results
 
@@ -91,7 +91,7 @@ Run them yourself: `python src/eval/run_evals.py`
 
 ## The demo estate
 
-[`estate/`](estate/) contains **30 synthetic flow definitions** — synthetic by design: this repo is public and the hackathon disclaimer prohibits confidential information. The estate is internally consistent (shared connections, realistic naming entropy, mixed hygiene) and contains four planted landmines for verifiable detection:
+[`estate/`](estate/) contains **30 synthetic flow definitions** - synthetic by design: this repo is public and the hackathon disclaimer prohibits confidential information. The estate is internally consistent (shared connections, realistic naming entropy, mixed hygiene) and contains four planted landmines for verifiable detection:
 
 | Landmine | Where | Why it's hard |
 |---|---|---|
@@ -119,7 +119,7 @@ python src/run_triage.py        # → triage-report.md
 python src/eval/run_evals.py
 ```
 
-No secrets in code or config — auth is `DefaultAzureCredential` throughout.
+No secrets in code or config - auth is `DefaultAzureCredential` throughout.
 
 ## Impact
 
@@ -130,8 +130,8 @@ A 30-minute-per-flow manual audit across this 30-flow estate is a two-week engin
 - The analyzer parses the simplified export schema used here; full Logic Apps schema coverage (nested scopes, expressions) is roadmap
 - Dependency mapping covers child-flow invocations; HTTP-triggered flow-to-flow calls would need URL correlation
 - Raw definitions ride along in-context for the agent's contextual judgment, capping single-run estates around ~100 flows; the analyzer itself scales far beyond that, so chunked judgment is the obvious next step
-- The analyzer runs as a pre-processing pipeline rather than a Foundry function tool — a deliberate 2-day reliability trade-off; tool-calling is the v2 path
-- Single-agent by design — the rubric rewards depth over sprawl
+- The analyzer runs as a pre-processing pipeline rather than a Foundry function tool - a deliberate 2-day reliability trade-off; tool-calling is the v2 path
+- Single-agent by design - the rubric rewards depth over sprawl
 
 ## Stack
 

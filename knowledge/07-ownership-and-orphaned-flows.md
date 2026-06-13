@@ -14,7 +14,7 @@ lists, environments); it is suspended with no owner able to re-enable it.
 - Orphaned + ENABLED + business-critical: HIGH (single point of failure)
 - Orphaned + SUSPENDED: MEDIUM (-10 modifier per rubric: reduced live
   risk, but blocks audits and may hold stale permissions)
-- Shared connections owned by a departed user: HIGH — dependent flows
+- Shared connections owned by a departed user: HIGH - dependent flows
   fail when the account is disabled by leaver process
 
 ## Remediation

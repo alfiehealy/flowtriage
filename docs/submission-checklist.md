@@ -3,7 +3,7 @@
 ## Repo
 - [ ] Public visibility confirmed (open in incognito to verify)
 - [ ] README placeholders ALL replaced (video link, 2 screenshots, eval results)
-- [ ] No secrets: search repo for "key", "token", "endpoint" — only env var
+- [ ] No secrets: search repo for "key", "token", "endpoint" - only env var
       references should appear
 - [ ] No employer identifiers anywhere (grep for company name, real emails)
 - [ ] LICENSE + .gitignore present, eval outputs gitignored

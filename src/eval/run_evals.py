@@ -1,5 +1,5 @@
 """
-FlowTriage eval harness — runs the 8 reliability cases in eval_cases.json
+FlowTriage eval harness - runs the 8 reliability cases in eval_cases.json
 against the live agent and reports pass/fail per assertion.
 
 Usage:
@@ -76,9 +76,9 @@ def main() -> None:
         results = check(case, response)
         ok = all(r for _, r in results)
         passed_cases += ok
-        print(f"{'PASS' if ok else 'FAIL'}  {case['id']}  — {case['tests']}")
+        print(f"{'PASS' if ok else 'FAIL'}  {case['id']}  - {case['tests']}")
         for label, r in results:
-            print(f"        {'✓' if r else '�-'} {label}")
+            print(f"        {'✓' if r else '✗'} {label}")
         (ROOT / "src" / "eval" / f"output_{case['id']}.md").write_text(response)
 
     print(f"\n{passed_cases}/{len(CASES)} cases passed. "

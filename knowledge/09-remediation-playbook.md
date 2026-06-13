@@ -5,7 +5,7 @@ Standard remediation sequencing for estate triage output.
 ## Ordering rules
 1. CRITICAL findings first, ordered by score descending.
 2. Security findings (credentials) before stability findings (cycles)
-   when scores tie — exposure compounds over time.
+   when scores tie - exposure compounds over time.
 3. Batch HIGH deprecated-connector migrations by connector, not by flow
    (one migration pattern, applied N times).
 4. MEDIUM/LOW items enter the backlog with the rubric score recorded so

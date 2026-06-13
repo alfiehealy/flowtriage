@@ -28,7 +28,7 @@ anything else matters.
 2. Attach the knowledge base to the agent
 3. Copy the agent ID
 
-## 5. SMOKE TEST — the go/no-go gate
+## 5. SMOKE TEST - the go/no-go gate
 In the agent playground ask: "What severity applies to a hardcoded API
 key, and what document says so?" You must get CRITICAL with a rubric
 citation. If retrieval fails, fix it NOW (check indexing status, KB
