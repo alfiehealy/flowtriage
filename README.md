@@ -10,7 +10,7 @@
 
 </div>
 
-[![FlowTriage triage report](assets/triage-report-hero.png)](https://www.youtube.com/watch?v=SsVOL8txtJw)
+[![FlowTriage triage report](assets/prioritised-findings.png)](https://www.youtube.com/watch?v=SsVOL8txtJw)
 
 ---
 
