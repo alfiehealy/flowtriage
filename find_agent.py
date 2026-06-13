@@ -1,4 +1,4 @@
-﻿import os
+import os
 from azure.identity import DefaultAzureCredential
 from azure.ai.projects import AIProjectClient
 client = AIProjectClient(endpoint=os.environ["PROJECT_ENDPOINT"], credential=DefaultAzureCredential())

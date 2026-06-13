@@ -27,7 +27,7 @@ I know because I maintain a **477-flow production estate**, where I run a nightl
                 severity arithmetic · prioritisation · remediation
                         │
                         ▼
-                  Foundry IQ knowledge base  ◀── 9 governance standards
+                  Foundry IQ knowledge base  �-�── 9 governance standards
                   (agentic retrieval)             incl. the risk rubric itself
                         │
                         ▼
@@ -52,7 +52,7 @@ FlowTriage is built to make multi-step reasoning *visible and verifiable*:
 
 Each finding in the report shows: evidence item → standard retrieved → judgment with arithmetic. The reasoning is the artefact, not a hidden chain.
 
-**Where the agent earns its keep (judgment the code can't do):** the analyzer reports *23 flows* missing error handling — the agent reads the raw definitions to triage which matter, applying the rubric's +10 business-impact modifier to `payroll_export_DO_NOT_EDIT` while leaving "Untitled flow (3)" at LOW. It scores the same deprecated connector differently in an enabled flow versus a suspended one. And it recognises compounding risk: flow-11's hardcoded key sits in an *enabled hourly* flow, so exposure repeats 24× daily and key rotation must precede any flow edit. None of that is in evidence.json — it's contextual, multi-step judgment.
+**Where the agent earns its keep (judgment the code can't do):** the analyzer reports *23 flows* missing error handling — the agent reads the raw definitions to triage which matter, applying the rubric's +10 business-impact modifier to `payroll_export_DO_NOT_EDIT` while leaving "Untitled flow (3)" at LOW. It scores the same deprecated connector differently in an enabled flow versus a suspended one. And it recognises compounding risk: flow-11's hardcoded key sits in an *enabled hourly* flow, so exposure repeats 24�- daily and key rotation must precede any flow edit. None of that is in evidence.json — it's contextual, multi-step judgment.
 
 ## Microsoft IQ integration: Foundry IQ as the spine
 
