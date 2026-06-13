@@ -59,7 +59,7 @@ This isn't retrieval bolted onto a chatbot. **The agent's entire judgment model 
 - Detection guidance (what counts as a secret, what counts as a cycle, what counts as an orphan) is grounded in nine governance standards under [`knowledge/`](knowledge/)
 - Foundry IQ's agentic retrieval picks the relevant standard per finding; the agent is forbidden from scoring anything it cannot ground
 
-![Foundry IQ knowledge base](assets/foundry-iq-knowledge-base.png)
+![How FlowTriage reasons: deterministic code detects, the Foundry agent judges, and every judgment cites a standard retrieved from Foundry IQ](assets/how-flowtriage-reasons.png)
 
 **Swap the knowledge base, change the judgment.** Point the same agent at *your* organisation's standards and it triages by your rules - that's the Foundry IQ design payoff.
 
