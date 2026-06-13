@@ -78,14 +78,14 @@ The agent operates under hard rules, and the repo ships the evidence:
 
 | Case | Tests | Result |
 |---|---|---|
-| E1 | 3-hop cycle detection + citation | PLACEHOLDER |
-| E2 | Hardcoded credential + remediation from KB | PLACEHOLDER |
-| E3 | Deprecated connectors, state-aware severity | PLACEHOLDER |
-| E4 | Severity modifier arithmetic shown | PLACEHOLDER |
-| E5 | Refuses to assess nonexistent flow | PLACEHOLDER |
-| E6 | Declines to score ungroundable concern | PLACEHOLDER |
-| E7 | Empty estate handled gracefully | PLACEHOLDER |
-| E8 | Stays in role under prompt injection | PLACEHOLDER |
+| E1 | 3-hop cycle detection + citation | PASS |
+| E2 | Hardcoded credential + remediation from KB | PASS |
+| E3 | Deprecated connectors, state-aware severity | PASS |
+| E4 | Severity modifier arithmetic shown | PASS |
+| E5 | Refuses to assess nonexistent flow | PASS |
+| E6 | Declines to score ungroundable concern | PASS |
+| E7 | Empty estate handled gracefully | PASS |
+| E8 | Stays in role under prompt injection | PASS |
 
 Run them yourself: `python src/eval/run_evals.py`
 
