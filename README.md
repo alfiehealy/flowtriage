@@ -22,22 +22,13 @@ I know because I maintain a **477-flow production estate**, where I run a nightl
 
 ## What it does
 
-```
- estate/*.json ──▶  Deterministic analyzer (src/analyze_estate.py)
-                    dependency graph · cycle detection · secret scan
-                    lifecycle + reliability checks  →  evidence.json
-                        │
-                        ▼
-                FlowTriage agent (Microsoft Foundry)
-                grounded JUDGMENT over the evidence:
-                severity arithmetic · prioritisation · remediation
-                        │
-                        ▼
-                  Foundry IQ knowledge base  ◀── 9 governance standards
-                  (agentic retrieval)             incl. the risk rubric itself
-                        │
-                        ▼
-                triage-report.md  - ranked findings, every score cited
+```mermaid
+flowchart TD
+    A["estate/*.json<br/>exported flow definitions"] --> B["Deterministic analyzer (src/analyze_estate.py)<br/>dependency graph, cycle detection, secret scan,<br/>lifecycle + reliability checks"]
+    B --> C["evidence.json"]
+    C --> D["FlowTriage agent (Microsoft Foundry)<br/>grounded judgment over the evidence:<br/>severity arithmetic, prioritisation, remediation"]
+    KB["Foundry IQ knowledge base<br/>9 governance standards, agentic retrieval<br/>(incl. the risk rubric itself)"] -. retrieves the right standard per finding .-> D
+    D --> E["triage-report.md<br/>ranked findings, every score cited"]
 ```
 
 **Design principle: deterministic sensors, grounded judgment.** Detection (graph algorithms, regex secret scanning, register lookups) is code - same input, same evidence, every run. Judgment (what a finding *means*, how severe, what order to fix) is the agent, and every judgment must cite a standard retrieved from Foundry IQ. LLMs are unreliable at exhaustive analysis and excellent at contextual judgment; this architecture puts each where it belongs.
@@ -142,6 +133,19 @@ A 30-minute-per-flow manual audit across this 30-flow estate is a two-week engin
 ## Stack
 
 Microsoft Foundry (agent runtime) · **Foundry IQ** (knowledge base + agentic retrieval) · Python + `azure-ai-projects` · AI-assisted development
+
+## Reviewer's guide (rubric → evidence)
+
+Mapped to the Agents League judging rubric so reviewers can find each thing fast:
+
+| Criterion | Where to look |
+|---|---|
+| **Accuracy & Relevance** (20%) | Reasoning Agents track; the required Microsoft IQ layer is **Foundry IQ**, used as the judgment spine rather than bolted-on retrieval: [Foundry IQ as the spine](#microsoft-iq-integration-foundry-iq-as-the-spine) |
+| **Reasoning & Multi-step thinking** (20%) | A fixed seven-step protocol with a visible reasoning trace per finding; it surfaces a three-hop dependency cycle no single flow owner could see: [How it reasons](#how-it-reasons-the-interesting-bit) |
+| **Creativity & Originality** (15%) | The "deterministic sensors, grounded judgment" split; **swap the knowledge base, change the judgment**; four planted landmines for verifiable detection |
+| **User Experience & Presentation** (15%) | A [2½-minute demo](https://www.youtube.com/watch?v=SsVOL8txtJw), the hero triage report, one-command evals, and a full [SETUP.md](SETUP.md) walkthrough |
+| **Reliability & Safety** (20%) | Cite-or-refuse, no fabrication, an [8/8 eval harness](#test-results) that includes prompt injection, and an honest [limitations](#known-limitations-honesty-section) section |
+| **Community vote** (10%) | If FlowTriage is useful to you, a vote in the [Agents League Discord](https://aka.ms/agentsleague/discord) is appreciated |
 
 ## License
 
