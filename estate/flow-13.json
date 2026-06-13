@@ -1,0 +1,63 @@
+{
+  "name": "flow-13",
+  "id": "/providers/Microsoft.Flow/flows/13a66985",
+  "properties": {
+    "displayName": "supplier-onboarding-NEW",
+    "state": "Started",
+    "createdTime": "2023-03-15T09:00:00Z",
+    "lastModifiedTime": "2025-01-24T14:30:00Z",
+    "creator": {
+      "userPrincipalName": "sioned.evans@contoso.com"
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "triggers": {
+        "Recurrence": {
+          "type": "Recurrence",
+          "recurrence": {
+            "frequency": "Minute",
+            "interval": 1440
+          }
+        }
+      },
+      "actions": {
+        "Step_1_sharepoint": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_sharepointonline"
+            },
+            "parameters": {}
+          },
+          "runAfter": {}
+        },
+        "Step_2_approvals": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_approvals"
+            },
+            "parameters": {}
+          },
+          "runAfter": {
+            "Step_1_sharepoint": [
+              "Succeeded"
+            ]
+          }
+        }
+      }
+    },
+    "connectionReferences": {
+      "shared_sharepointonline": {
+        "connectionName": "shared_sharepointonline",
+        "source": "Embedded",
+        "connectionOwner": "megan.price@contoso.com"
+      },
+      "shared_approvals": {
+        "connectionName": "shared_approvals",
+        "source": "Embedded",
+        "connectionOwner": "sioned.evans@contoso.com"
+      }
+    }
+  }
+}

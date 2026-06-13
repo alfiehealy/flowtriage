@@ -1,0 +1,60 @@
+{
+  "name": "flow-28",
+  "id": "/providers/Microsoft.Flow/flows/28a54473",
+  "properties": {
+    "displayName": "Customer Churn Alerter",
+    "state": "Started",
+    "createdTime": "2023-02-08T09:00:00Z",
+    "lastModifiedTime": "2025-04-07T14:30:00Z",
+    "creator": {
+      "userPrincipalName": "megan.price@contoso.com"
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Button"
+        }
+      },
+      "actions": {
+        "Step_1_dataverse": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps"
+            },
+            "parameters": {}
+          },
+          "runAfter": {}
+        },
+        "Step_2_teams": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_teams"
+            },
+            "parameters": {}
+          },
+          "runAfter": {
+            "Step_1_dataverse": [
+              "Succeeded"
+            ]
+          }
+        }
+      }
+    },
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "connectionName": "shared_commondataserviceforapps",
+        "source": "Embedded",
+        "connectionOwner": "megan.price@contoso.com"
+      },
+      "shared_teams": {
+        "connectionName": "shared_teams",
+        "source": "Embedded",
+        "connectionOwner": "tom.bradshaw@contoso.com"
+      }
+    }
+  }
+}

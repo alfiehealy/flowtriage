@@ -1,0 +1,71 @@
+{
+  "name": "flow-27",
+  "id": "/providers/Microsoft.Flow/flows/27a54118",
+  "properties": {
+    "displayName": "old_leaver_process_v2_FINAL",
+    "state": "Suspended",
+    "createdTime": "2022-02-03T09:00:00Z",
+    "lastModifiedTime": "2025-07-04T14:30:00Z",
+    "creator": {
+      "userPrincipalName": "rhys.morgan@contoso.com"
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "triggers": {
+        "When_an_item_is_created": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_sharepointonline"
+            },
+            "parameters": {
+              "dataset": "https://contoso.sharepoint.com/sites/HR-Archive",
+              "table": "Leavers 2022"
+            }
+          }
+        }
+      },
+      "actions": {
+        "Send_an_email_V2": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_office365"
+            },
+            "parameters": {
+              "emailMessage/To": "itservicedesk@contoso.com",
+              "emailMessage/Subject": "Leaver detected - deprovision"
+            }
+          },
+          "runAfter": {}
+        },
+        "Update_deleted_list": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_sharepointonline"
+            },
+            "parameters": {
+              "dataset": "https://contoso.sharepoint.com/sites/HR-Archive",
+              "table": "Leavers 2022"
+            }
+          },
+          "runAfter": {}
+        }
+      }
+    },
+    "connectionReferences": {
+      "shared_sharepointonline": {
+        "connectionName": "shared_sharepointonline",
+        "source": "Embedded",
+        "connectionOwner": "rhys.morgan@contoso.com"
+      },
+      "shared_office365": {
+        "connectionName": "shared_office365",
+        "source": "Embedded",
+        "connectionOwner": "rhys.morgan@contoso.com"
+      }
+    }
+  },
+  "_reviewNotes": "Site 'HR-Archive' decommissioned Q3 2024. Owner left the business Jan 2025."
+}

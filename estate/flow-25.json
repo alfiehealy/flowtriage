@@ -1,0 +1,60 @@
+{
+  "name": "flow-25",
+  "id": "/providers/Microsoft.Flow/flows/25a85525",
+  "properties": {
+    "displayName": "Untitled flow (3)",
+    "state": "Started",
+    "createdTime": "2023-08-08T09:00:00Z",
+    "lastModifiedTime": "2025-08-26T14:30:00Z",
+    "creator": {
+      "userPrincipalName": "SVC-automation@contoso.com"
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Button"
+        }
+      },
+      "actions": {
+        "Step_1_sharepoint": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_sharepointonline"
+            },
+            "parameters": {}
+          },
+          "runAfter": {}
+        },
+        "Step_2_outlook": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_office365"
+            },
+            "parameters": {}
+          },
+          "runAfter": {
+            "Step_1_sharepoint": [
+              "Succeeded"
+            ]
+          }
+        }
+      }
+    },
+    "connectionReferences": {
+      "shared_sharepointonline": {
+        "connectionName": "shared_sharepointonline",
+        "source": "Embedded",
+        "connectionOwner": "dylan.hughes@contoso.com"
+      },
+      "shared_office365": {
+        "connectionName": "shared_office365",
+        "source": "Embedded",
+        "connectionOwner": "SVC-automation@contoso.com"
+      }
+    }
+  }
+}

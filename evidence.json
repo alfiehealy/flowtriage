@@ -1,0 +1,201 @@
+{
+  "inventory": {
+    "flow_count": 30,
+    "by_state": {
+      "Started": 29,
+      "Suspended": 1
+    },
+    "connectors_in_use": [
+      "shared_approvals",
+      "shared_commondataserviceforapps",
+      "shared_excelonlinebusiness",
+      "shared_msnweather",
+      "shared_office365",
+      "shared_sharepointonline",
+      "shared_teams",
+      "shared_twitter"
+    ]
+  },
+  "dependency_edges": [
+    {
+      "from": "flow-08",
+      "to": "flow-17"
+    },
+    {
+      "from": "flow-17",
+      "to": "flow-23"
+    },
+    {
+      "from": "flow-23",
+      "to": "flow-08"
+    }
+  ],
+  "cycles": [
+    [
+      "flow-08",
+      "flow-17",
+      "flow-23",
+      "flow-08"
+    ]
+  ],
+  "secret_findings": [
+    {
+      "flow": "flow-11",
+      "display": "Sync Pricing To Legacy CRM",
+      "hits": [
+        {
+          "action": "Call_legacy_pricing_API",
+          "header": "x-api-key",
+          "value_preview": "sk_live_***REDACTED***"
+        }
+      ]
+    }
+  ],
+  "deprecated_connector_findings": [
+    {
+      "flow": "flow-05",
+      "display": "Daily Site Weather Email",
+      "connector": "shared_msnweather",
+      "state": "Started"
+    },
+    {
+      "flow": "flow-19",
+      "display": "Social Mentions Tracker",
+      "connector": "shared_twitter",
+      "state": "Started"
+    }
+  ],
+  "departed_owner_findings": [
+    {
+      "flow": "flow-27",
+      "connection": "shared_sharepointonline",
+      "owner": "rhys.morgan@contoso.com",
+      "state": "Suspended",
+      "kind": "connection_owner_departed"
+    },
+    {
+      "flow": "flow-27",
+      "connection": "shared_office365",
+      "owner": "rhys.morgan@contoso.com",
+      "state": "Suspended",
+      "kind": "connection_owner_departed"
+    },
+    {
+      "flow": "flow-27",
+      "owner": "rhys.morgan@contoso.com",
+      "state": "Suspended",
+      "kind": "flow_owner_departed",
+      "notes": "Site 'HR-Archive' decommissioned Q3 2024. Owner left the business Jan 2025."
+    }
+  ],
+  "aggressive_polling_findings": [
+    {
+      "flow": "flow-14",
+      "display": "check stock levels",
+      "interval_minutes": 5
+    }
+  ],
+  "missing_error_handling": [
+    {
+      "flow": "flow-04",
+      "display": "Expense Receipt Capture"
+    },
+    {
+      "flow": "flow-05",
+      "display": "Daily Site Weather Email"
+    },
+    {
+      "flow": "flow-06",
+      "display": "Contract Renewal Reminders"
+    },
+    {
+      "flow": "flow-07",
+      "display": "teams_channel_archiver"
+    },
+    {
+      "flow": "flow-08",
+      "display": "Customer Onboarding - Master"
+    },
+    {
+      "flow": "flow-09",
+      "display": "Fleet MOT Reminder"
+    },
+    {
+      "flow": "flow-10",
+      "display": "Holiday Request Sync"
+    },
+    {
+      "flow": "flow-11",
+      "display": "Sync Pricing To Legacy CRM"
+    },
+    {
+      "flow": "flow-12",
+      "display": "CSAT Survey Dispatcher"
+    },
+    {
+      "flow": "flow-13",
+      "display": "supplier-onboarding-NEW"
+    },
+    {
+      "flow": "flow-14",
+      "display": "check stock levels"
+    },
+    {
+      "flow": "flow-15",
+      "display": "Asset Register Updater"
+    },
+    {
+      "flow": "flow-17",
+      "display": "Provisioning Subflow"
+    },
+    {
+      "flow": "flow-18",
+      "display": "Quote Follow-up Nudger"
+    },
+    {
+      "flow": "flow-19",
+      "display": "Social Mentions Tracker"
+    },
+    {
+      "flow": "flow-20",
+      "display": "DocGen - Sales Proposals"
+    },
+    {
+      "flow": "flow-21",
+      "display": "Meeting Room No-Show Release"
+    },
+    {
+      "flow": "flow-22",
+      "display": "Engineer Job Sheet Sync"
+    },
+    {
+      "flow": "flow-23",
+      "display": "Billing Setup Handler"
+    },
+    {
+      "flow": "flow-25",
+      "display": "Untitled flow (3)"
+    },
+    {
+      "flow": "flow-27",
+      "display": "old_leaver_process_v2_FINAL"
+    },
+    {
+      "flow": "flow-28",
+      "display": "Customer Churn Alerter"
+    },
+    {
+      "flow": "flow-30",
+      "display": "Renewals Pipeline Refresher"
+    }
+  ],
+  "duplicate_name_suspects": [
+    {
+      "base_name": "invoice approval routing",
+      "flows": [
+        "flow-01",
+        "flow-24"
+      ]
+    }
+  ]
+}

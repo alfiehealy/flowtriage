@@ -1,0 +1,60 @@
+{
+  "name": "flow-30",
+  "id": "/providers/Microsoft.Flow/flows/30a31798",
+  "properties": {
+    "displayName": "Renewals Pipeline Refresher",
+    "state": "Started",
+    "createdTime": "2023-07-16T09:00:00Z",
+    "lastModifiedTime": "2025-08-07T14:30:00Z",
+    "creator": {
+      "userPrincipalName": "megan.price@contoso.com"
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Button"
+        }
+      },
+      "actions": {
+        "Step_1_dataverse": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps"
+            },
+            "parameters": {}
+          },
+          "runAfter": {}
+        },
+        "Step_2_excel": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_excelonlinebusiness"
+            },
+            "parameters": {}
+          },
+          "runAfter": {
+            "Step_1_dataverse": [
+              "Succeeded"
+            ]
+          }
+        }
+      }
+    },
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "connectionName": "shared_commondataserviceforapps",
+        "source": "Embedded",
+        "connectionOwner": "megan.price@contoso.com"
+      },
+      "shared_excelonlinebusiness": {
+        "connectionName": "shared_excelonlinebusiness",
+        "source": "Embedded",
+        "connectionOwner": "dylan.hughes@contoso.com"
+      }
+    }
+  }
+}

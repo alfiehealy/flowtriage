@@ -1,0 +1,43 @@
+{
+  "name": "flow-11",
+  "id": "/providers/Microsoft.Flow/flows/11a88907",
+  "properties": {
+    "displayName": "Sync Pricing To Legacy CRM",
+    "state": "Started",
+    "createdTime": "2023-01-18T09:00:00Z",
+    "lastModifiedTime": "2025-04-23T14:30:00Z",
+    "creator": {
+      "userPrincipalName": "tom.bradshaw@contoso.com"
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "triggers": {
+        "Recurrence": {
+          "type": "Recurrence",
+          "recurrence": {
+            "frequency": "Minute",
+            "interval": 60
+          }
+        }
+      },
+      "actions": {
+        "Call_legacy_pricing_API": {
+          "type": "Http",
+          "inputs": {
+            "method": "POST",
+            "uri": "https://legacy-crm.contoso-internal.net/api/pricing/sync",
+            "headers": {
+              "x-api-key": "sk_live_9f3Kd82mZpQw7Lr4Tn6VbXc1",
+              "Content-Type": "application/json"
+            },
+            "body": {
+              "source": "powerautomate"
+            }
+          },
+          "runAfter": {}
+        }
+      }
+    },
+    "connectionReferences": {}
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "name": "flow-18",
+  "id": "/providers/Microsoft.Flow/flows/18a41571",
+  "properties": {
+    "displayName": "Quote Follow-up Nudger",
+    "state": "Started",
+    "createdTime": "2023-10-03T09:00:00Z",
+    "lastModifiedTime": "2025-02-24T14:30:00Z",
+    "creator": {
+      "userPrincipalName": "sioned.evans@contoso.com"
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "triggers": {
+        "Recurrence": {
+          "type": "Recurrence",
+          "recurrence": {
+            "frequency": "Minute",
+            "interval": 60
+          }
+        }
+      },
+      "actions": {
+        "Step_1_dataverse": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps"
+            },
+            "parameters": {}
+          },
+          "runAfter": {}
+        },
+        "Step_2_outlook": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_office365"
+            },
+            "parameters": {}
+          },
+          "runAfter": {
+            "Step_1_dataverse": [
+              "Succeeded"
+            ]
+          }
+        }
+      }
+    },
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "connectionName": "shared_commondataserviceforapps",
+        "source": "Embedded",
+        "connectionOwner": "dylan.hughes@contoso.com"
+      },
+      "shared_office365": {
+        "connectionName": "shared_office365",
+        "source": "Embedded",
+        "connectionOwner": "megan.price@contoso.com"
+      }
+    }
+  }
+}

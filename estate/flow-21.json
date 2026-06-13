@@ -1,0 +1,60 @@
+{
+  "name": "flow-21",
+  "id": "/providers/Microsoft.Flow/flows/21a50857",
+  "properties": {
+    "displayName": "Meeting Room No-Show Release",
+    "state": "Started",
+    "createdTime": "2023-07-22T09:00:00Z",
+    "lastModifiedTime": "2025-11-12T14:30:00Z",
+    "creator": {
+      "userPrincipalName": "dylan.hughes@contoso.com"
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Button"
+        }
+      },
+      "actions": {
+        "Step_1_outlook": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_office365"
+            },
+            "parameters": {}
+          },
+          "runAfter": {}
+        },
+        "Step_2_teams": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_teams"
+            },
+            "parameters": {}
+          },
+          "runAfter": {
+            "Step_1_outlook": [
+              "Succeeded"
+            ]
+          }
+        }
+      }
+    },
+    "connectionReferences": {
+      "shared_office365": {
+        "connectionName": "shared_office365",
+        "source": "Embedded",
+        "connectionOwner": "SVC-automation@contoso.com"
+      },
+      "shared_teams": {
+        "connectionName": "shared_teams",
+        "source": "Embedded",
+        "connectionOwner": "dylan.hughes@contoso.com"
+      }
+    }
+  }
+}

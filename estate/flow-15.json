@@ -1,0 +1,63 @@
+{
+  "name": "flow-15",
+  "id": "/providers/Microsoft.Flow/flows/15a91959",
+  "properties": {
+    "displayName": "Asset Register Updater",
+    "state": "Started",
+    "createdTime": "2023-05-27T09:00:00Z",
+    "lastModifiedTime": "2025-11-17T14:30:00Z",
+    "creator": {
+      "userPrincipalName": "dylan.hughes@contoso.com"
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "triggers": {
+        "Recurrence": {
+          "type": "Recurrence",
+          "recurrence": {
+            "frequency": "Minute",
+            "interval": 1440
+          }
+        }
+      },
+      "actions": {
+        "Step_1_excel": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_excelonlinebusiness"
+            },
+            "parameters": {}
+          },
+          "runAfter": {}
+        },
+        "Step_2_dataverse": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps"
+            },
+            "parameters": {}
+          },
+          "runAfter": {
+            "Step_1_excel": [
+              "Succeeded"
+            ]
+          }
+        }
+      }
+    },
+    "connectionReferences": {
+      "shared_excelonlinebusiness": {
+        "connectionName": "shared_excelonlinebusiness",
+        "source": "Embedded",
+        "connectionOwner": "SVC-automation@contoso.com"
+      },
+      "shared_commondataserviceforapps": {
+        "connectionName": "shared_commondataserviceforapps",
+        "source": "Embedded",
+        "connectionOwner": "megan.price@contoso.com"
+      }
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "name": "flow-05",
+  "id": "/providers/Microsoft.Flow/flows/05a38893",
+  "properties": {
+    "displayName": "Daily Site Weather Email",
+    "state": "Started",
+    "createdTime": "2023-08-19T09:00:00Z",
+    "lastModifiedTime": "2025-05-26T14:30:00Z",
+    "creator": {
+      "userPrincipalName": "megan.price@contoso.com"
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "triggers": {
+        "Recurrence": {
+          "type": "Recurrence",
+          "recurrence": {
+            "frequency": "Minute",
+            "interval": 1440
+          }
+        }
+      },
+      "actions": {
+        "Get_forecast": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_msnweather"
+            },
+            "parameters": {
+              "units": "Metric",
+              "location": "Cardiff"
+            }
+          },
+          "runAfter": {}
+        },
+        "Send_an_email_V2": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_office365"
+            },
+            "parameters": {
+              "emailMessage/To": "fieldops@contoso.com",
+              "emailMessage/Subject": "Today's site weather"
+            }
+          },
+          "runAfter": {}
+        }
+      }
+    },
+    "connectionReferences": {
+      "shared_msnweather": {
+        "connectionName": "shared_msnweather",
+        "source": "Embedded",
+        "connectionOwner": "SVC-automation@contoso.com"
+      },
+      "shared_office365": {
+        "connectionName": "shared_office365",
+        "source": "Embedded",
+        "connectionOwner": "tom.bradshaw@contoso.com"
+      }
+    }
+  }
+}

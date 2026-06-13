@@ -1,0 +1,60 @@
+{
+  "name": "flow-07",
+  "id": "/providers/Microsoft.Flow/flows/07a28726",
+  "properties": {
+    "displayName": "teams_channel_archiver",
+    "state": "Started",
+    "createdTime": "2023-05-05T09:00:00Z",
+    "lastModifiedTime": "2025-04-24T14:30:00Z",
+    "creator": {
+      "userPrincipalName": "tom.bradshaw@contoso.com"
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Button"
+        }
+      },
+      "actions": {
+        "Step_1_teams": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_teams"
+            },
+            "parameters": {}
+          },
+          "runAfter": {}
+        },
+        "Step_2_sharepoint": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_sharepointonline"
+            },
+            "parameters": {}
+          },
+          "runAfter": {
+            "Step_1_teams": [
+              "Succeeded"
+            ]
+          }
+        }
+      }
+    },
+    "connectionReferences": {
+      "shared_teams": {
+        "connectionName": "shared_teams",
+        "source": "Embedded",
+        "connectionOwner": "tom.bradshaw@contoso.com"
+      },
+      "shared_sharepointonline": {
+        "connectionName": "shared_sharepointonline",
+        "source": "Embedded",
+        "connectionOwner": "tom.bradshaw@contoso.com"
+      }
+    }
+  }
+}

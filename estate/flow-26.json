@@ -1,0 +1,85 @@
+{
+  "name": "flow-26",
+  "id": "/providers/Microsoft.Flow/flows/26a63883",
+  "properties": {
+    "displayName": "payroll_export_DO_NOT_EDIT",
+    "state": "Started",
+    "createdTime": "2023-08-28T09:00:00Z",
+    "lastModifiedTime": "2025-12-02T14:30:00Z",
+    "creator": {
+      "userPrincipalName": "tom.bradshaw@contoso.com"
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "triggers": {
+        "When_an_item_is_created": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_sharepointonline"
+            },
+            "parameters": {
+              "dataset": "https://contoso.sharepoint.com/sites/Operations",
+              "table": "payroll_export_DO_NOT_EDIT List"
+            }
+          }
+        }
+      },
+      "actions": {
+        "Step_1_excel": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_excelonlinebusiness"
+            },
+            "parameters": {}
+          },
+          "runAfter": {}
+        },
+        "Step_2_outlook": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_office365"
+            },
+            "parameters": {}
+          },
+          "runAfter": {
+            "Step_1_excel": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Notify_on_failure": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_teams"
+            },
+            "parameters": {
+              "message": "Flow failed"
+            }
+          },
+          "runAfter": {
+            "Step_2_outlook": [
+              "Failed",
+              "TimedOut"
+            ]
+          }
+        }
+      }
+    },
+    "connectionReferences": {
+      "shared_excelonlinebusiness": {
+        "connectionName": "shared_excelonlinebusiness",
+        "source": "Embedded",
+        "connectionOwner": "sioned.evans@contoso.com"
+      },
+      "shared_office365": {
+        "connectionName": "shared_office365",
+        "source": "Embedded",
+        "connectionOwner": "tom.bradshaw@contoso.com"
+      }
+    }
+  }
+}

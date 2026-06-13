@@ -1,0 +1,55 @@
+{
+  "name": "flow-19",
+  "id": "/providers/Microsoft.Flow/flows/19a65392",
+  "properties": {
+    "displayName": "Social Mentions Tracker",
+    "state": "Started",
+    "createdTime": "2023-06-09T09:00:00Z",
+    "lastModifiedTime": "2025-03-07T14:30:00Z",
+    "creator": {
+      "userPrincipalName": "dylan.hughes@contoso.com"
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "triggers": {
+        "When_a_new_tweet_appears": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_twitter"
+            },
+            "parameters": {
+              "searchQuery": "@contoso"
+            }
+          }
+        }
+      },
+      "actions": {
+        "Append_to_Excel": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_excelonlinebusiness"
+            },
+            "parameters": {
+              "file": "/Shared/SocialMentions.xlsx"
+            }
+          },
+          "runAfter": {}
+        }
+      }
+    },
+    "connectionReferences": {
+      "shared_twitter": {
+        "connectionName": "shared_twitter",
+        "source": "Embedded",
+        "connectionOwner": "megan.price@contoso.com"
+      },
+      "shared_excelonlinebusiness": {
+        "connectionName": "shared_excelonlinebusiness",
+        "source": "Embedded",
+        "connectionOwner": "dylan.hughes@contoso.com"
+      }
+    }
+  }
+}

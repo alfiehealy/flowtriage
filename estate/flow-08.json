@@ -1,0 +1,66 @@
+{
+  "name": "flow-08",
+  "id": "/providers/Microsoft.Flow/flows/08a46048",
+  "properties": {
+    "displayName": "Customer Onboarding - Master",
+    "state": "Started",
+    "createdTime": "2023-04-08T09:00:00Z",
+    "lastModifiedTime": "2025-03-24T14:30:00Z",
+    "creator": {
+      "userPrincipalName": "megan.price@contoso.com"
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "triggers": {
+        "When_an_item_is_created": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_sharepointonline"
+            },
+            "parameters": {
+              "dataset": "https://contoso.sharepoint.com/sites/Operations",
+              "table": "New Customers"
+            }
+          }
+        }
+      },
+      "actions": {
+        "Trigger_provisioning_subflow": {
+          "type": "Workflow",
+          "inputs": {
+            "host": {
+              "workflowReferenceName": "flow-17"
+            }
+          },
+          "runAfter": {}
+        },
+        "Send_an_email_V2": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_office365"
+            },
+            "parameters": {
+              "emailMessage/To": "onboarding@contoso.com",
+              "emailMessage/Subject": "New customer onboarding started"
+            }
+          },
+          "runAfter": {}
+        }
+      }
+    },
+    "connectionReferences": {
+      "shared_sharepointonline": {
+        "connectionName": "shared_sharepointonline",
+        "source": "Embedded",
+        "connectionOwner": "megan.price@contoso.com"
+      },
+      "shared_office365": {
+        "connectionName": "shared_office365",
+        "source": "Embedded",
+        "connectionOwner": "megan.price@contoso.com"
+      }
+    }
+  }
+}

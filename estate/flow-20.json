@@ -1,0 +1,68 @@
+{
+  "name": "flow-20",
+  "id": "/providers/Microsoft.Flow/flows/20a96474",
+  "properties": {
+    "displayName": "DocGen - Sales Proposals",
+    "state": "Started",
+    "createdTime": "2023-08-18T09:00:00Z",
+    "lastModifiedTime": "2025-03-09T14:30:00Z",
+    "creator": {
+      "userPrincipalName": "SVC-automation@contoso.com"
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "triggers": {
+        "When_an_item_is_created": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_sharepointonline"
+            },
+            "parameters": {
+              "dataset": "https://contoso.sharepoint.com/sites/Operations",
+              "table": "DocGen List"
+            }
+          }
+        }
+      },
+      "actions": {
+        "Step_1_sharepoint": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_sharepointonline"
+            },
+            "parameters": {}
+          },
+          "runAfter": {}
+        },
+        "Step_2_outlook": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_office365"
+            },
+            "parameters": {}
+          },
+          "runAfter": {
+            "Step_1_sharepoint": [
+              "Succeeded"
+            ]
+          }
+        }
+      }
+    },
+    "connectionReferences": {
+      "shared_sharepointonline": {
+        "connectionName": "shared_sharepointonline",
+        "source": "Embedded",
+        "connectionOwner": "dylan.hughes@contoso.com"
+      },
+      "shared_office365": {
+        "connectionName": "shared_office365",
+        "source": "Embedded",
+        "connectionOwner": "dylan.hughes@contoso.com"
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.env
+.venv/
+venv/
+*.egg-info/
+.DS_Store
+# never commit run artefacts with potentially identifying portal output
+src/eval/output_*.md

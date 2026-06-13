@@ -1,0 +1,77 @@
+{
+  "name": "flow-02",
+  "id": "/providers/Microsoft.Flow/flows/02a40512",
+  "properties": {
+    "displayName": "New Starter IT Checklist",
+    "state": "Started",
+    "createdTime": "2023-02-13T09:00:00Z",
+    "lastModifiedTime": "2025-05-15T14:30:00Z",
+    "creator": {
+      "userPrincipalName": "dylan.hughes@contoso.com"
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Button"
+        }
+      },
+      "actions": {
+        "Step_1_sharepoint": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_sharepointonline"
+            },
+            "parameters": {}
+          },
+          "runAfter": {}
+        },
+        "Step_2_teams": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_teams"
+            },
+            "parameters": {}
+          },
+          "runAfter": {
+            "Step_1_sharepoint": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Notify_on_failure": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_teams"
+            },
+            "parameters": {
+              "message": "Flow failed"
+            }
+          },
+          "runAfter": {
+            "Step_2_teams": [
+              "Failed",
+              "TimedOut"
+            ]
+          }
+        }
+      }
+    },
+    "connectionReferences": {
+      "shared_sharepointonline": {
+        "connectionName": "shared_sharepointonline",
+        "source": "Embedded",
+        "connectionOwner": "sioned.evans@contoso.com"
+      },
+      "shared_teams": {
+        "connectionName": "shared_teams",
+        "source": "Embedded",
+        "connectionOwner": "megan.price@contoso.com"
+      }
+    }
+  }
+}

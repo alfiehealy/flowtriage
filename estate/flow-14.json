@@ -1,0 +1,55 @@
+{
+  "name": "flow-14",
+  "id": "/providers/Microsoft.Flow/flows/14a55082",
+  "properties": {
+    "displayName": "check stock levels",
+    "state": "Started",
+    "createdTime": "2023-10-09T09:00:00Z",
+    "lastModifiedTime": "2025-01-24T14:30:00Z",
+    "creator": {
+      "userPrincipalName": "tom.bradshaw@contoso.com"
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "triggers": {
+        "Recurrence": {
+          "type": "Recurrence",
+          "recurrence": {
+            "frequency": "Minute",
+            "interval": 5
+          }
+        }
+      },
+      "actions": {
+        "Query_stock_API": {
+          "type": "Http",
+          "inputs": {
+            "method": "GET",
+            "uri": "https://erp.contoso-internal.net/api/stock/all"
+          },
+          "runAfter": {}
+        },
+        "Send_an_email_V2": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_office365"
+            },
+            "parameters": {
+              "emailMessage/To": "warehouse@contoso.com",
+              "emailMessage/Subject": "Stock alert"
+            }
+          },
+          "runAfter": {}
+        }
+      }
+    },
+    "connectionReferences": {
+      "shared_office365": {
+        "connectionName": "shared_office365",
+        "source": "Embedded",
+        "connectionOwner": "sioned.evans@contoso.com"
+      }
+    }
+  }
+}

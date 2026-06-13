@@ -1,0 +1,52 @@
+{
+  "name": "flow-17",
+  "id": "/providers/Microsoft.Flow/flows/17a98696",
+  "properties": {
+    "displayName": "Provisioning Subflow",
+    "state": "Started",
+    "createdTime": "2023-12-18T09:00:00Z",
+    "lastModifiedTime": "2025-02-19T14:30:00Z",
+    "creator": {
+      "userPrincipalName": "dylan.hughes@contoso.com"
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Button"
+        }
+      },
+      "actions": {
+        "Run_billing_setup": {
+          "type": "Workflow",
+          "inputs": {
+            "host": {
+              "workflowReferenceName": "flow-23"
+            }
+          },
+          "runAfter": {}
+        },
+        "Create_Dataverse_record": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "accounts"
+            }
+          },
+          "runAfter": {}
+        }
+      }
+    },
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "connectionName": "shared_commondataserviceforapps",
+        "source": "Embedded",
+        "connectionOwner": "megan.price@contoso.com"
+      }
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "name": "flow-09",
+  "id": "/providers/Microsoft.Flow/flows/09a62350",
+  "properties": {
+    "displayName": "Fleet MOT Reminder",
+    "state": "Started",
+    "createdTime": "2023-06-08T09:00:00Z",
+    "lastModifiedTime": "2025-03-17T14:30:00Z",
+    "creator": {
+      "userPrincipalName": "SVC-automation@contoso.com"
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Button"
+        }
+      },
+      "actions": {
+        "Step_1_excel": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_excelonlinebusiness"
+            },
+            "parameters": {}
+          },
+          "runAfter": {}
+        },
+        "Step_2_outlook": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_office365"
+            },
+            "parameters": {}
+          },
+          "runAfter": {
+            "Step_1_excel": [
+              "Succeeded"
+            ]
+          }
+        }
+      }
+    },
+    "connectionReferences": {
+      "shared_excelonlinebusiness": {
+        "connectionName": "shared_excelonlinebusiness",
+        "source": "Embedded",
+        "connectionOwner": "tom.bradshaw@contoso.com"
+      },
+      "shared_office365": {
+        "connectionName": "shared_office365",
+        "source": "Embedded",
+        "connectionOwner": "SVC-automation@contoso.com"
+      }
+    }
+  }
+}

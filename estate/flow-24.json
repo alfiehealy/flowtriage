@@ -1,0 +1,85 @@
+{
+  "name": "flow-24",
+  "id": "/providers/Microsoft.Flow/flows/24a14117",
+  "properties": {
+    "displayName": "Copy of Invoice Approval Routing",
+    "state": "Started",
+    "createdTime": "2023-06-03T09:00:00Z",
+    "lastModifiedTime": "2025-09-08T14:30:00Z",
+    "creator": {
+      "userPrincipalName": "megan.price@contoso.com"
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "triggers": {
+        "When_an_item_is_created": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_sharepointonline"
+            },
+            "parameters": {
+              "dataset": "https://contoso.sharepoint.com/sites/Operations",
+              "table": "Copy List"
+            }
+          }
+        }
+      },
+      "actions": {
+        "Step_1_approvals": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_approvals"
+            },
+            "parameters": {}
+          },
+          "runAfter": {}
+        },
+        "Step_2_sharepoint": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_sharepointonline"
+            },
+            "parameters": {}
+          },
+          "runAfter": {
+            "Step_1_approvals": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Notify_on_failure": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_teams"
+            },
+            "parameters": {
+              "message": "Flow failed"
+            }
+          },
+          "runAfter": {
+            "Step_2_sharepoint": [
+              "Failed",
+              "TimedOut"
+            ]
+          }
+        }
+      }
+    },
+    "connectionReferences": {
+      "shared_approvals": {
+        "connectionName": "shared_approvals",
+        "source": "Embedded",
+        "connectionOwner": "dylan.hughes@contoso.com"
+      },
+      "shared_sharepointonline": {
+        "connectionName": "shared_sharepointonline",
+        "source": "Embedded",
+        "connectionOwner": "megan.price@contoso.com"
+      }
+    }
+  }
+}

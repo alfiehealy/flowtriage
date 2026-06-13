@@ -1,0 +1,80 @@
+{
+  "name": "flow-29",
+  "id": "/providers/Microsoft.Flow/flows/29a42742",
+  "properties": {
+    "displayName": "Site Survey Photo Filer",
+    "state": "Started",
+    "createdTime": "2023-02-15T09:00:00Z",
+    "lastModifiedTime": "2025-09-04T14:30:00Z",
+    "creator": {
+      "userPrincipalName": "dylan.hughes@contoso.com"
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "triggers": {
+        "Recurrence": {
+          "type": "Recurrence",
+          "recurrence": {
+            "frequency": "Minute",
+            "interval": 1440
+          }
+        }
+      },
+      "actions": {
+        "Step_1_sharepoint": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_sharepointonline"
+            },
+            "parameters": {}
+          },
+          "runAfter": {}
+        },
+        "Step_2_teams": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_teams"
+            },
+            "parameters": {}
+          },
+          "runAfter": {
+            "Step_1_sharepoint": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Notify_on_failure": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_teams"
+            },
+            "parameters": {
+              "message": "Flow failed"
+            }
+          },
+          "runAfter": {
+            "Step_2_teams": [
+              "Failed",
+              "TimedOut"
+            ]
+          }
+        }
+      }
+    },
+    "connectionReferences": {
+      "shared_sharepointonline": {
+        "connectionName": "shared_sharepointonline",
+        "source": "Embedded",
+        "connectionOwner": "sioned.evans@contoso.com"
+      },
+      "shared_teams": {
+        "connectionName": "shared_teams",
+        "source": "Embedded",
+        "connectionOwner": "tom.bradshaw@contoso.com"
+      }
+    }
+  }
+}

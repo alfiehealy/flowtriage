@@ -1,0 +1,46 @@
+{
+  "name": "flow-23",
+  "id": "/providers/Microsoft.Flow/flows/23a13905",
+  "properties": {
+    "displayName": "Billing Setup Handler",
+    "state": "Started",
+    "createdTime": "2023-02-07T09:00:00Z",
+    "lastModifiedTime": "2025-04-17T14:30:00Z",
+    "creator": {
+      "userPrincipalName": "sioned.evans@contoso.com"
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Button"
+        }
+      },
+      "actions": {
+        "Notify_master_flow": {
+          "type": "Workflow",
+          "inputs": {
+            "host": {
+              "workflowReferenceName": "flow-08"
+            },
+            "comment": "Re-trigger master to refresh status"
+          },
+          "runAfter": {}
+        }
+      }
+    },
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "connectionName": "shared_commondataserviceforapps",
+        "source": "Embedded",
+        "connectionOwner": "tom.bradshaw@contoso.com"
+      },
+      "shared_office365": {
+        "connectionName": "shared_office365",
+        "source": "Embedded",
+        "connectionOwner": "megan.price@contoso.com"
+      }
+    }
+  }
+}

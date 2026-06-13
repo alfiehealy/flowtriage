@@ -1,0 +1,77 @@
+{
+  "name": "flow-01",
+  "id": "/providers/Microsoft.Flow/flows/01a48427",
+  "properties": {
+    "displayName": "Invoice Approval Routing",
+    "state": "Started",
+    "createdTime": "2023-11-20T09:00:00Z",
+    "lastModifiedTime": "2025-06-19T14:30:00Z",
+    "creator": {
+      "userPrincipalName": "tom.bradshaw@contoso.com"
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Button"
+        }
+      },
+      "actions": {
+        "Step_1_approvals": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_approvals"
+            },
+            "parameters": {}
+          },
+          "runAfter": {}
+        },
+        "Step_2_sharepoint": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_sharepointonline"
+            },
+            "parameters": {}
+          },
+          "runAfter": {
+            "Step_1_approvals": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Notify_on_failure": {
+          "type": "ApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_teams"
+            },
+            "parameters": {
+              "message": "Flow failed"
+            }
+          },
+          "runAfter": {
+            "Step_2_sharepoint": [
+              "Failed",
+              "TimedOut"
+            ]
+          }
+        }
+      }
+    },
+    "connectionReferences": {
+      "shared_approvals": {
+        "connectionName": "shared_approvals",
+        "source": "Embedded",
+        "connectionOwner": "megan.price@contoso.com"
+      },
+      "shared_sharepointonline": {
+        "connectionName": "shared_sharepointonline",
+        "source": "Embedded",
+        "connectionOwner": "SVC-automation@contoso.com"
+      }
+    }
+  }
+}
