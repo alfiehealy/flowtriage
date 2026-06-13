@@ -46,7 +46,7 @@
         {
           "action": "Call_legacy_pricing_API",
           "header": "x-api-key",
-          "value_preview": "sk_live_***REDACTED***"
+          "value_preview": "REDACTED***REDACTED***"
         }
       ]
     }

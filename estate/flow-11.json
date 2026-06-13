@@ -27,7 +27,7 @@
             "method": "POST",
             "uri": "https://legacy-crm.contoso-internal.net/api/pricing/sync",
             "headers": {
-              "x-api-key": "sk_live_9f3Kd82mZpQw7Lr4Tn6VbXc1",
+              "x-api-key": "REDACTED-EXAMPLE-NOT-A-REAL-KEY",
               "Content-Type": "application/json"
             },
             "body": {
